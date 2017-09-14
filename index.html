@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Psychic Game</title>
+</head>
+	<style type="text/css">
+		
+	</style>
+<body>
+
+<!-- 1 computer generates a random letter
+2 user enters a letter 
+3 code checks if letters match 
+	-if yes increment wins 
+	-if no decrement attempts allowed 
+4 display results and keep track of score 
+5 also display the letters chosen  -->
+
+	<div id = "game">
+		<h1>The Psychic Game</h1>
+		<p>Guess what letter I'm thinking of</p>
+		<p>Wins: </p>
+		<p>Losses: </p>
+		<p>Guesses left: 9</p>
+		<p>Your guesses so far: </p>
+		<img src="assets/images/065Alakazam.png" alt = "alakazam">
+
+	<script type="text/javascript">
+		var letters =[];
+		var wins = 0;
+		var losses = 0;
+		var guesses = 9;
+		var cpuGuess;
+		var userGuesses = [];
+		for (i=97; i<=122; i++) {
+			letters[letters.length] = String.fromCharCode(i);
+		}
+		console.log(letters);
+
+		function randomLetter() {
+			cpuGuess = letters[Math.floor(Math.random() * letters.length)];	
+			console.log("CPU guess: " + cpuGuess);
+		}
+		randomLetter();		
+		document.onkeyup = function() {
+			var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+			console.log(userGuess);
+			userGuesses.push(userGuess);
+		//randomLetter();
+
+		if (userGuess === cpuGuess){
+			alert("Congrats, you are psychic!");
+			wins++
+			guesses = 9; 
+			randomLetter();
+			userGuesses = [];			
+		}
+		else{			
+			guesses--;
+		}
+
+		if (guesses == 0) {
+			losses++;
+			guesses = 9;
+			randomLetter();
+			userGuesses = [];
+		}
+
+		var html = "<h1>The Psychic Game</h1>" +
+		"<p>Guess what letter I'm thinking of</p>" +
+		"<p>Wins: " + wins + "</p>" +
+		"<p>Losses: " + losses +"</p>" +
+		"<p>Gusses left: " + guesses + "</p>" +
+		"<p>Your guesses so far: " +  userGuesses + "</p>";
+
+		document.querySelector('#game').innerHTML = html;
+
+	}
+
+	</script>
+
+<img src="assets/images/mew.png" alt = "mew and mewtwo" style="float: right">
+
+</body>
+</html>
